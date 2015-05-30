@@ -31,18 +31,19 @@ import java.util.ArrayList;
  *
  * @author STP
  */
+
 public class Subject {
     private ArrayList<Observer> list = new ArrayList<Observer>();
     public void Attach(Observer o) {
         list.add(o);
-    }
+    }          //資料新增
     public void Detach(Observer o) {
         list.remove(o);
-    }
+    }         //資料移除
     public void Notify(){
         for (Observer o:list){
             o.Update();
         }
-    }
+    }       //資料上傳
     
 }

@@ -44,7 +44,7 @@ public class ObserverSample {
         views.add(new View("View 1", window, model));
         views.add(new View("View 2", window, model));
         views.add(new AlternativeView("View 3", window, model));
-
+           // 把View更改成AlternativeView(顯示反轉字串的View)
         // Start the event loop.
         window.startEventLoop(controller);
     }

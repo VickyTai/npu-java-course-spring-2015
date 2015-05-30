@@ -51,5 +51,6 @@ public class Model extends Subject {
     public void setData(String data) {
         mData = data;
         Notify();
+        //呼應subject的Notify裡的Update
     }
 }

@@ -35,12 +35,15 @@ public class View implements Observer  {
     protected final String mName;
     protected final Window mWindow;
     protected final Model mModel;
+    
 
+     
     public View(String name, Window window, Model model) {
         mName = name;
         mWindow = window;
         mModel = model;
         mModel.Attach(this);
+         //註冊Attach
     }
 
     /**
