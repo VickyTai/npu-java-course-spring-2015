@@ -25,19 +25,24 @@
  */
 package tw.edu.npu.mis;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author STP
  */
 public class Subject {
-    public void Attach() {
-        
+    private ArrayList<Observer> list = new ArrayList<Observer>();
+    public void Attach(Observer o) {
+        list.add(o);
     }
-    public void Detach(){
-    
+    public void Detach(Observer o) {
+        list.remove(o);
     }
     public void Notify(){
-    
+        for (Observer o:list){
+            o.Update();
+        }
     }
     
 }
