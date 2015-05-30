@@ -32,9 +32,9 @@ package tw.edu.npu.mis;
  */
 public class View implements Observer  {
 
-    private final String mName;
-    private final Window mWindow;
-    private final Model mModel;
+    protected final String mName;
+    protected final Window mWindow;
+    protected final Model mModel;
 
     public View(String name, Window window, Model model) {
         mName = name;
