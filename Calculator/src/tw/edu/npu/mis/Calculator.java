@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tw.edu.npu.mis;
-
+package calculator;
+import static org.omg.CORBA.ORB.init;
 /**
  * The model class of the calculator application.
  */
-public class Calculator {
+public class Calculator extends java.util.Observable {
+    String number = "" ;
+    double x,y,z=0;
     
     /**
      * The available operators of the calculator.
@@ -32,29 +34,67 @@ public class Calculator {
         MEM_MINUS,   // M-
         MEM_RECALL   // MR
     }
-    
+    /**
+     * button按下數字
+     * @param digit 
+     */
     public void appendDigit(int digit) {
-        // TODO code application logic here
+     number += String.valueOf(digit);
+     getDisplay();
     }
-    
-    public void appendDot() {
-        // TODO code application logic here
+    /**
+     * 小數點
+     * @param d 
+     */
+    public void appendDot(String d) {
+      number +=d;
+      getDisplay();
+        
     }
-    
+    /**
+     * 運算
+     * @param operator 
+     */
     public void performOperation(Operator operator) {
-        // TODO code application logic here
+        /**
+         * C
+         */
+       if(operator == Operator.CLEAR){
+           
+           number ="0";
+           z = 0;
+           getDisplay();
+           number="";
+           
+       }
+        
     }
-    
+    /**
+     *  上載資料
+     * @return 
+     */
     public String getDisplay() {
         // TODO code application logic here
+        setChanged();
+        notifyObservers(number);
         return null;
     }
+    /**
+     * 存取運算符號
+     * @param b 
+     */
+    public void bn(String b){
+    if(b =="+") performOperation(Operator.PLUS);
+    if(b =="-") performOperation(Operator.MINUS);
+    if(b =="x") performOperation(Operator.TIMES);
+    if(b =="/") performOperation(Operator.OVER);
+    if(b =="c") performOperation(Operator.CLEAR);
+    if(b =="=") performOperation(Operator.EQUAL);
+      
+    }
+}
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-
-}
+   
