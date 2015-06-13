@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
+package tw.edu.npu.mis;
 import static org.omg.CORBA.ORB.init;
 /**
  * The model class of the calculator application.
  */
 public class Calculator extends java.util.Observable {
-    String number = "" ;
-    double x,y,z=0;
+     String digital ="";
+     double x,y,a,b =0,c;
+     String z = "",r = "0";
+
+   
     
     /**
      * The available operators of the calculator.
@@ -39,7 +42,7 @@ public class Calculator extends java.util.Observable {
      * @param digit 
      */
     public void appendDigit(int digit) {
-     number += String.valueOf(digit);
+     digital += String.valueOf(digit);
      getDisplay();
     }
     /**
@@ -47,7 +50,7 @@ public class Calculator extends java.util.Observable {
      * @param d 
      */
     public void appendDot(String d) {
-      number +=d;
+      digital +=d;
       getDisplay();
         
     }
@@ -55,20 +58,191 @@ public class Calculator extends java.util.Observable {
      * 運算
      * @param operator 
      */
-    public void performOperation(Operator operator) {
+    public void performOperation(Operator operator)
+    {
         /**
          * C
          */
-       if(operator == Operator.CLEAR){
+       if(operator == Operator.CLEAR)
+       {
            
-           number ="0";
-           z = 0;
+            digital ="0";
+            b = 0;
            getDisplay();
-           number="";
+            digital="";
            
        }
+        /**
+         * 按下 ＣE　功能
+         */
+        if(operator == Operator.CLEAR_ENTRY)
+        {
+            digital = "0";
+            getDisplay();
+            digital ="";
+        }
+        /**
+         * 加法
+         */
+        if(operator == Operator.PLUS)
+        {
+            if(digital.length()>0)
+            {
+               x = Double.parseDouble(digital);
+               digital = "";
+               z = "+";
+            }
+            else
+            {
+                x = b;
+                b = 0;
+                digital = "";
+                z ="+";
+            }
+        }
+         /**
+        *減法 
+        */
+        if(operator == Operator.MINUS)
+        {
+            if(digital.length()>0)
+            {
+              x = Double.parseDouble(digital);
+              digital ="";
+              z = "-";
+            }else
+            {
+                x = b;
+                b = 0;
+                digital ="";
+                z = "-";
+            }
+        }
+        /**
+         * 乘法
+         */
+        if(operator == Operator.TIMES)
+        {
+            if(digital.length()>0)
+            {
+              x = Double.parseDouble(digital);
+              digital ="";
+              z = "*";
+            }else
+            {
+                x = b;
+                b = 0;
+                digital ="";
+                z = "*";
+            }
+        }
+        /**
+         * 除法
+         */
+        if(operator == Operator.OVER)
+        {
+            if(digital.length()>0)
+            {
+              x = Double.parseDouble(digital);
+              digital ="";
+              z = "/";
+            }else
+            {
+                x = b;
+          
+                digital ="";
+                z = "/";
+            }
+        }
+        /**
+         * 等於
+         */
+        if(operator == Operator.EQUAL)
+        {
+            if(z == "+")
         
-    }
+        {
+            y = Double.parseDouble(digital);
+            digital = String.valueOf(x+y);
+            if(digital.indexOf(".0")==digital.length()-2)
+            {
+                digital = String.valueOf((int)(x+y));
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+            else
+            {
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+        
+        }
+        }
+        if (z == "-")
+        {
+            y = Double.parseDouble(digital);
+            digital = String.valueOf(x-y);
+            if(digital.indexOf(".0")==digital.length()-2)
+            {
+                digital = String.valueOf((int)(x-y));
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+            else
+            {
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+        
+        }
+          if (z == "*")
+        {
+            y = Double.parseDouble(digital);
+            digital = String.valueOf(x*y);
+            if(digital.indexOf(".0")==digital.length()-2)
+            {
+                digital = String.valueOf((int)(x*y));
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+            else
+            {
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+        }
+        if (z == "/")
+        {
+            y = Double.parseDouble(digital);
+            digital = String.valueOf(x/y);
+            if(digital.indexOf(".0")==digital.length()-2)
+            {
+                digital = String.valueOf((int)(x/y));
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+            else
+            {
+                getDisplay();
+                b = Double.parseDouble(digital);
+                digital = "";
+            }
+        }
+    
+            
+    
+   
+  
+        }
+    
+    
     /**
      *  上載資料
      * @return 
@@ -76,21 +250,21 @@ public class Calculator extends java.util.Observable {
     public String getDisplay() {
         // TODO code application logic here
         setChanged();
-        notifyObservers(number);
+        notifyObservers(digital);
         return null;
     }
     /**
      * 存取運算符號
      * @param b 
      */
-    public void bn(String b){
-    if(b =="+") performOperation(Operator.PLUS);
-    if(b =="-") performOperation(Operator.MINUS);
-    if(b =="x") performOperation(Operator.TIMES);
-    if(b =="/") performOperation(Operator.OVER);
-    if(b =="c") performOperation(Operator.CLEAR);
-    if(b =="=") performOperation(Operator.EQUAL);
-      
+    public void bn(String text){
+    if(text =="+") performOperation(Operator.PLUS);
+    if(text =="-") performOperation(Operator.MINUS);
+    if(text =="*") performOperation(Operator.TIMES);
+    if(text =="/") performOperation(Operator.OVER);
+    if(text =="C") performOperation(Operator.CLEAR);
+    if(text =="=") performOperation(Operator.EQUAL);
+    if(text =="CE")performOperation(Operator.CLEAR_ENTRY);
     }
 }
 

@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calculator;
-
+package tw.edu.npu.mis;
 import tw.edu.npu.mis.Calculator.Operator;
 /**
  *
@@ -55,8 +54,8 @@ public class Contorller {
    /**
     * 傳送運算符號
     */
-   public void bn (String operator){
-       mmodel.bn(operator);
+   public void bn (String b){
+       mmodel.bn(b);
    } 
            
            
